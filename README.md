@@ -1,6 +1,4 @@
-# Always bet on JS
-
-Status of JavaScript programming in 2016. 
+Presentation slides for lightning talk about JavaScript awesomeness. 
 
 [purplecode.github.io/lightning-talk-js-2016](http://purplecode.github.io/lightning-talk-js-2016)
 
