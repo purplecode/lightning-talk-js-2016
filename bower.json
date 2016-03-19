@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "highlightjs": "~9.1.0",
-    "highlightjs-cypher": "jasonclark1985/highlightjs-cypher"
+    "reveal-js": "~2.6.2",
+    "github-fork-ribbon-css": "~0.2.0"
   }
 }

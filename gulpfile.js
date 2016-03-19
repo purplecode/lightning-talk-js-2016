@@ -11,6 +11,12 @@ var paths = {
     images: './src/images/**/*'
 };
 
+gulp.task('build', function () {
+    gulp.src(paths.index)
+        .pipe(jade())
+        .pipe(gulp.dest('.'));
+});
+
 gulp.task('watch', function () {
     watch([paths.src], function () {
         gulp.src(paths.index)
@@ -27,3 +33,4 @@ gulp.task('server', function () {
             open: true
         }));
 });
+
