@@ -1,0 +1,14 @@
+{
+  "name": "highlightjs-cypher",
+  "homepage": "https://github.com/jasonclark1985/highlightjs-cypher",
+  "_release": "24e745a5f5",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "24e745a5f57db0e4b5ae40a58960ef10ee2cd7f6"
+  },
+  "_source": "git://github.com/jasonclark1985/highlightjs-cypher.git",
+  "_target": "*",
+  "_originalSource": "jasonclark1985/highlightjs-cypher",
+  "_direct": true
+}

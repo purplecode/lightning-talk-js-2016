@@ -1,0 +1,21 @@
+{
+  "name": "lightning-talk-neo4j",
+  "version": "0.0.1",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start": "gulp watch",
+    "server": "gulp server",
+    "docker": "docker run --detach --publish=7474:7474 --volume=data:/data neo4j"
+  },
+  "author": "Mateusz Jaworski",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-watch": "^4.3.5",
+    "gulp-webserver": "^0.9.1",
+    "jade": "^1.11.0"
+  }
+}

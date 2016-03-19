@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+  head
+    title Neo4j
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible', content='ie=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='src/shower/themes/ribbon/styles/screen-16x10.css')
+    link(rel='stylesheet', href='bower_components/highlightjs/styles/default.css')
+    link(rel='stylesheet', href='bower_components/highlightjs-cypher/css/cypher-highlighting.css')
+    style
+      include ./styles/common.css
+  body.shower.list
+    header.caption
+      h1 Neo4j
+      p The World's Leading Graph Database
+    include ./slides.jade
+    p.badge
+      a(href='https://github.com/purplecode/lightning-talk-neo4j') Fork me on GitHub
+    .progress
+    script(src='src/shower/shower.min.js')
+    script(src='bower_components/highlightjs/highlight.pack.min.js')
+    script(src='bower_components/highlightjs-cypher/javascripts/cypher.js')
+    script.
+      hljs.registerLanguage('cypher', cypher)
+      hljs.initHighlightingOnLoad();

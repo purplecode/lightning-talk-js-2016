@@ -1,0 +1,176 @@
+section#cover.slide
+    h2 Neo4j Introduction
+    p
+        | by Mateusz Jaworski
+        br
+        | February 2016
+
+section.slide
+    h2 Why graph database?
+    ul
+        li nodes and relations are first class citizens
+        li constant time for neighbour lookups
+
+section.slide
+    h2 Why graph database?
+    ul
+        li give me all neighbours of A in N hops
+        li give me all paths from A to B
+        li give me the shortest path from A to B
+        li is there a node D on path between A and B
+
+section.slide
+    h2 Neo4j features
+    ol
+        li 1.0 released in February 2010
+        li licensing
+            ul
+                li community (GPLv3, 1 node)
+                li enterprise (clustering, backup, monitoring, free for open source projects)
+                li government
+        li cypher query language (via HTTP)
+
+section.slide#ranking
+    img(src='src/images/ranking.png')
+    p.note
+        | source:&nbsp;
+        a(href="http://db-engines.com/en/ranking") http://db-engines.com/en/ranking
+
+    style.
+        #ranking .note {
+            margin-right: 9em;
+            font-size: 0.5em;
+            float: right;
+        }
+        #ranking .note a {
+            text-decoration: none;
+            color: inherit;
+        }
+        #ranking img{
+            height: 500px;
+            display: block;
+            margin-top: -40px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+section.slide
+    h2 Neo4j features
+    ol
+        li properties - on nodes and edges (primitives or array of primitives)
+        li labels - on nodes and edges
+        li indexes - on node properties
+        li constraints - on nodes or relations
+        li ACID transactions
+
+section.slide
+    h2 ACID
+    ol
+        li Neo4j claims to be ACID compliant
+        li but... ACID in distributed database?
+        li but... CAP theorem? (consistency, availability, partition tolerance)
+        li ACID transactions (READ_COMMITTED by default)
+    p.note
+        a(href='http://neo4j.com/docs/stable/transactions.html') more: transaction management
+
+section.slide
+    h2 Built-in algorithms
+    ol
+        li shortest paths
+        li all paths
+        li all simple paths (no repeated nodes)
+        li Dijkstra (shortest path with weights)
+        li A* (shortest path with heuristic)
+
+section.slide
+    h2 Cypher
+    pre
+        code.cypher.
+            MATCH (user)-[:friend]->(follower)
+            WHERE user.name IN ['Joe', 'John']
+                AND follower.name =~ 'S.*'
+            RETURN user.name, follower.name
+
+section.slide
+    h2 Cypher
+    pre
+        code.cypher.
+            MATCH (a)--(b)
+            MATCH (a)-[:friend]->(b)-->(c)
+            MATCH (a:A { name:'alice' })-[:friend {x:y}]-(b:B)
+            MATCH (a)-[:friend*1..3]->(b)
+
+section.slide
+    h2 Cypher
+    pre
+        code.cypher.
+            MATCH (alice { name: 'Alice' }), (others)
+            WHERE others.name IN ['A', 'B'] AND (alice)<--(others)
+            RETURN others
+
+            MATCH (bob { name: 'Bob' })-->(others)
+            RETURN bob, count(*) as count, avg(others.value)
+            ORDER BY count ASC LIMIT 10
+
+section.slide
+    h2.centered Live demo
+
+section.slide
+    h2 Shell commands
+    ol
+        li :play start
+        li :server connect
+        li :clear
+        li :history
+        li :style [reset]
+        li :config maxRows:100
+
+
+section.slide
+    h2 Graph zooming tweak
+    pre#tweak
+        code.javascript.
+            (function ($) {
+                var isAlt = false;
+                function altCheck(e) {
+                    if (e.which === 18) {
+                        isAlt = (e.type === 'keydown');
+                    }
+                }
+                function wheelCheck(e) {
+                    if (!isAlt) return;
+                    e.preventDefault();
+                    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                    var el = $('svg > g');
+                    var transform = el.attr('transform');
+                    transform = (transform.indexOf('translate') > -1) ? 'scale(1.0)' : transform;
+                    var scale = new Number(transform.slice(6, transform.length - 1)) + 0.1 * delta;
+                    el.attr('transform', `scale(${scale})`);
+                    return false;
+                }
+                document.addEventListener("mousewheel", wheelCheck, false);
+                $(document).keydown(altCheck).keyup(altCheck);
+            }(jQuery));
+    style.
+        #tweak {
+            font-size: 9px;
+        }
+
+section.slide
+    h2 Alternatives
+    ol
+        li OrientDB &nbsp;
+            a(href="http://orientdb.com/") http://orientdb.com/
+        li ArangoDB &nbsp;
+            a(href="https://www.arangodb.com/") https://www.arangodb.com/
+        li Titan &nbsp;
+            a(href="http://thinkaurelius.github.io/titan/") http://thinkaurelius.github.io/titan/
+        li Virtuoso &nbsp;
+            a(href="http://virtuoso.openlinksw.com/") http://virtuoso.openlinksw.com/
+
+section.slide
+    h2.centered Questions?
+
+section.slide
+    h2.centered Thanks!
+
