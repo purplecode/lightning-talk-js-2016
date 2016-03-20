@@ -4,6 +4,13 @@
     box-shadow: none;
     height: 35vh;
     padding: 20px;
+}
+
+.split {
+    display: flex;
+}
+.split .left, .split .right {
+    flex-grow: 1;
 }</style></head><body><a href="https://github.com/purplecode/lightning-talk-js-2016" title="Fork me on Github" class="github-fork-ribbon right-top"></a><div class="reveal"><div class="slides"><section><h1>JavaScript in 2016</h1><h3>Current status of JS development</h3></section><section><section><h2>Javascript</h2><img src="src/images/jsgolf.jpg"><p>This is Javascript. If you put big wheels and a racing stripe on a golf cart, it's still a fucking golf cart.</p><br><small><a href="http://crashworks.org/if_programming_languages_were_vehicles/" target="_blank">@source: if programming languages were vehicles</a></small></section><section><h2>WAT</h2><pre><code class="hljs javascript">2 == [2];
 // true
 
@@ -190,7 +197,25 @@ var square: Square = new Square(10, 'blue');
 declare module 'd3' {
     export = d3;
 }
-</code></pre></section><section><h2>Asm.js</h2><a href="http://webassembly.github.io/demo/">webassembly</a></section></section><section><section><h1>Good to know</h1></section><section><h2>Web Workers</h2>- transferable objects, 0 copy
+</code></pre></section><section><h2>Asm.js</h2><p>Strict subset JavaScript for significant performance improvements of applications that are written in statically-typed languages.
+~2x slower than native compilation of C with clang.</p><div class="split"><div class="left"><pre><code class="hjls c">size_t strlen(char *ptr) {
+  char *curr = ptr;
+  while (*curr != 0) {
+    curr++;
+  }
+  return (curr − ptr);
+}
+
+
+</code></pre></div><div class="right"><pre><code class="hjls javascript">function strlen(ptr) {
+  ptr = ptr|0;
+  var curr = 0;
+  curr = ptr;
+  while (MEM8[curr]|0 != 0) {
+    curr = (curr + 1)|0;
+  }
+  return (curr − ptr)|0;
+}</code></pre></div></div><small>@source: &nbsp;<a href="https://en.wikipedia.org/wiki/Asm.js">Wikipedia</a></small></section></section><section><section><h1>Good to know</h1></section><section><h2>Web Workers</h2>- transferable objects, 0 copy
 - shared/dedicated</section><section><h2>Virtual DOM</h2></section><section><h2>Shadow DOM</h2></section><section><h2>IndexedDB</h2></section><section><h2>Sockets</h2></section></section><section>- http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email</section></div></div><script src="bower_components/reveal-js/lib/js/head.min.js"></script><script src="bower_components/reveal-js/js/reveal.js"></script><script>Reveal.initialize({
     progress: true,
     slideNumber: false,

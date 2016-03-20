@@ -536,7 +536,38 @@ section
 
     section
         h2 Asm.js
-        a(href="http://webassembly.github.io/demo/") webassembly
+        p
+            | Strict subset JavaScript for significant performance improvements of applications that are written in statically-typed languages.
+            | ~2x slower than native compilation of C with clang.
+        .split
+            .left
+                pre
+                    code.hjls.c.
+                        size_t strlen(char *ptr) {
+                          char *curr = ptr;
+                          while (*curr != 0) {
+                            curr++;
+                          }
+                          return (curr − ptr);
+                        }
+
+
+
+            .right
+                pre
+                    code.hjls.javascript.
+                        function strlen(ptr) {
+                          ptr = ptr|0;
+                          var curr = 0;
+                          curr = ptr;
+                          while (MEM8[curr]|0 != 0) {
+                            curr = (curr + 1)|0;
+                          }
+                          return (curr − ptr)|0;
+                        }
+        small
+            | @source: &nbsp;
+            a(href="https://en.wikipedia.org/wiki/Asm.js") Wikipedia
 
 section
     section
