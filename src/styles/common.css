@@ -1,0 +1,7 @@
+.reveal section img.logo {
+    background: none;
+    border: none;
+    box-shadow: none;
+    height: 35vh;
+    padding: 20px;
+}
