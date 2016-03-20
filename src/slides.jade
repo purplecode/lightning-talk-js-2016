@@ -430,71 +430,82 @@ section
             li
                 a(href="https://www.cesanta.com/products/smart-js") Smart.js
 
-section.
-    + es6/es7/...
+    section
+        h2 Ubiquity
+        h4 Shell
+        ul
+            li
+                a(href="https://github.com/kimmobrunfeldt/concurrently") concurently
+            li
+                a(href="https://github.com/dthree/cash") cach
 
-    - http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email
-    - https://github.com/copy/v86?utm_source=javascriptweekly&utm_medium=email
-    - https://www.google.co.uk/search?q=always+bet+on+js
-    - transpiler Source-to-source compiler
-
-    - npm
-    - web workers
-                    - transferable objects, 0 copy
-                    - shared/dedicated
-    - sockets
-    - typescript/coffeescript/pyjs/luajs/jsweet...
-    - Vaadin/GWT/DukeScript
-    - asm.js
-    - grunt/gulp/babel/webpack
-    - concurently, ca$h
-    - webassembly http://webassembly.github.io/demo/
-    - http://mohayonao.github.io/timbre.js/?utm_source=javascriptweekly&utm_medium=email
-
-
+    section
+        h2 Ubiquity
+        h4 Virtualisation
+        img(src="src/images/wat-duck.jpg")
+        div
+            br
+            a(href="https://github.com/copy/v86") V86
 
 section
     section
-        h2 ~2004
-        pre
-            code.hljs.javascript.
-                var request = new XMLHttpRequest();
-                request.onload = function() {
-                    console.log(this.responseText);
-                };
-                request.onerror = function(err) {
-                    console.log(err);
-                 };
-                request.open('POST', './api', true);
-                request.send(JSON.stringify({limit: 10}));
+        h1 Tooling
 
     section
-        h2 ~2006
-        pre
-            code.hljs.javascript.
-                $.ajax({
-                  method: "POST",
-                  url: "/api",
-                  data: { limit: 10 }
-                }).done(function( msg ) {
-                    console.log(msg);
-                  });
+        h2 NPM
 
     section
-        h2 2016
-        pre
-            code.hljs.javascript.
-                fetch('/url')
-                    .then(function (response) {
-                            if (response.status !== 200) {
-                                console.log(response.status);
-                                return;
-                            }
-                            response.json().then(function (data) {
-                                console.log(data);
-                            });
-                        }
-                    )
-                    .catch(function (err) {
-                        console.log(err);
-                    });
+        h2 Gulp/Grunt
+
+    section
+        h2 Babel
+
+    section
+        h2 Webpack
+
+    section
+        h2 Firebug / Chrome Dev Tools
+
+section
+    section
+        h1 Evolution
+
+    section
+        h2 Transpilers
+        | typescript/coffeescript/pyjs/luajs/jsweet...
+
+    section
+        h2 Typescript
+
+    section
+        h2 Asm.js
+        a(href="http://webassembly.github.io/demo/") webassembly
+
+    section
+        h2 Vaadin/GWT/DukeScript
+
+section
+    section
+        h1 Good to know
+
+    section
+        h2 Web Workers
+        | - transferable objects, 0 copy
+        | - shared/dedicated
+
+    section
+        h2 Virtual DOM
+
+    section
+        h2 Shadow DOM
+
+    section
+        h2 IndexedDB
+
+    section
+        h2 Sockets
+
+section.
+    - http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email
+
+
