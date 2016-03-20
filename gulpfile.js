@@ -3,7 +3,6 @@ var jade = require('gulp-jade');
 var webserver = require('gulp-webserver');
 var watch = require('gulp-watch');
 
-
 var paths = {
     src: './src/**/*',
     index: './src/index.jade',
@@ -11,17 +10,19 @@ var paths = {
     images: './src/images/**/*'
 };
 
-gulp.task('build', function () {
+function build() {
     gulp.src(paths.index)
-        .pipe(jade())
+        .pipe(jade({}))
         .pipe(gulp.dest('.'));
+}
+
+gulp.task('build', function () {
+    build();
 });
 
 gulp.task('watch', function () {
-    watch([paths.src], function () {
-        gulp.src(paths.index)
-            .pipe(jade())
-            .pipe(gulp.dest('.'));
+    gulp.watch(paths.src, function () {
+        build();
     });
 });
 
