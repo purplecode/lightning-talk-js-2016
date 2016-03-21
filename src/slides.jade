@@ -575,20 +575,103 @@ section
 
     section
         h2 Web Workers
-        | - transferable objects, 0 copy
-        | - shared/dedicated
+        p JavaScript threads running in the background
+        pre
+            .filename index.js
+            code.hjls.javascript.
+                var worker = new Worker("workerScript.js");
+
+                worker.postMessage({id: 0, text : '...'});
+
+                worker.onmessage(event => console.log(event.data));
+
+        pre
+            .filename workerScript.js
+            code.hjls.javascript.
+                onmessage = (event) => {
+                    postMessage({
+                        id: event.data.id,
+                        result: eval(event.data.data)
+                    });
+                }
 
     section
         h2 Virtual DOM
+        ul
+            li DOM is not optimal for dynamic UI
+            li mimic DOM in JavaScript and apply only diff
+            li minimum number of operations to transform one tree into another ~ O(n<sup>3</sup>)
+            li React.js - non-optimal heuristic ~ O(n) (unique keys, model assumptions)
+            li implementations: React, Mithril, Matt-Esch/virtual-dom
+
 
     section
         h2 Shadow DOM
+        pre
+            code.hljs.html.
+                &lt;template id="template"&gt;
+                    &lt;style&gt;
+                        ...
+                    &lt;/style&gt;
+                    &lt;div class="outer"&gt;
+                        &lt;div class="title"&gt;Hello world from&lt;/div&gt;
+                        &lt;div class="name"&gt;
+                            &lt;content&gt;&lt;/content&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/template&gt;
+                &lt;div id="example"&gt;&lt;/div&gt;
+                &lt;script&gt;
+                    var shadow = document.querySelector('#example').createShadowRoot();
+                    var template = document.querySelector('#template');
+                    var clone = document.importNode(template.content, true);
+                    shadow.appendChild(clone);
+                &lt;/script&gt;
+
+        template#shadow-dom-template
+            style.
+                .outer {
+                    border: 1px dashed white;
+                    background: #9E0000;
+                    width: 90%;
+                    margin: auto;
+                    text-align: center;
+                }
+                .title {
+                    color: white;
+                    padding: 0.2em;
+                }
+                .name {
+                    background: white;
+                    padding: 0.2em;
+                }
+            .outer
+                .title
+                    | Hello world from
+                .name
+                    content
+        #shadow-dom-example Shadom DOM
+        script.
+            var shadow = document.querySelector('#shadow-dom-example').createShadowRoot();
+            var template = document.querySelector('#shadow-dom-template');
+            var clone = document.importNode(template.content, true);
+            shadow.appendChild(clone);
+
 
     section
         h2 IndexedDB
 
     section
         h2 Sockets
+
+    section
+        h2 Server push
+
+    section
+        h2 Server side rendering
+
+
+
 
 section.
     - http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email

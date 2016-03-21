@@ -11,6 +11,19 @@
 }
 .split .left, .split .right {
     flex-grow: 1;
+}
+
+.reveal section .filename {
+    margin-bottom: 5px;
+    font-style: italic
+}
+
+.reveal section sup {
+    font-size: 0.7em;
+}
+
+.reveal pre code {
+     max-height: none;
 }</style></head><body><a href="https://github.com/purplecode/lightning-talk-js-2016" title="Fork me on Github" class="github-fork-ribbon right-top"></a><div class="reveal"><div class="slides"><section><h1>JavaScript in 2016</h1><h3>Current status of JS development</h3></section><section><section><h2>Javascript</h2><img src="src/images/jsgolf.jpg"><p>This is Javascript. If you put big wheels and a racing stripe on a golf cart, it's still a fucking golf cart.</p><br><small><a href="http://crashworks.org/if_programming_languages_were_vehicles/" target="_blank">@source: if programming languages were vehicles</a></small></section><section><h2>WAT</h2><pre><code class="hljs javascript">2 == [2];
 // true
 
@@ -215,8 +228,55 @@ declare module 'd3' {
     curr = (curr + 1)|0;
   }
   return (curr − ptr)|0;
-}</code></pre></div></div><small>@source: &nbsp;<a href="https://en.wikipedia.org/wiki/Asm.js">Wikipedia</a></small></section></section><section><section><h1>Good to know</h1></section><section><h2>Web Workers</h2>- transferable objects, 0 copy
-- shared/dedicated</section><section><h2>Virtual DOM</h2></section><section><h2>Shadow DOM</h2></section><section><h2>IndexedDB</h2></section><section><h2>Sockets</h2></section></section><section>- http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email</section></div></div><script src="bower_components/reveal-js/lib/js/head.min.js"></script><script src="bower_components/reveal-js/js/reveal.js"></script><script>Reveal.initialize({
+}</code></pre></div></div><small>@source: &nbsp;<a href="https://en.wikipedia.org/wiki/Asm.js">Wikipedia</a></small></section></section><section><section><h1>Good to know</h1></section><section><h2>Web Workers</h2><p>JavaScript threads running in the background</p><pre><div class="filename">index.js</div><code class="hjls javascript">var worker = new Worker("workerScript.js");
+
+worker.postMessage({id: 0, text : '...'});
+
+worker.onmessage(event => console.log(event.data));
+</code></pre><pre><div class="filename">workerScript.js</div><code class="hjls javascript">onmessage = (event) => {
+    postMessage({
+        id: event.data.id,
+        result: eval(event.data.data)
+    });
+}
+</code></pre></section><section><h2>Virtual DOM</h2><ul><li>DOM is not optimal for dynamic UI</li><li>mimic DOM in JavaScript and apply only diff</li><li>minimum number of operations to transform one tree into another ~ O(n<sup>3</sup>)</li><li>React.js - non-optimal heuristic ~ O(n) (unique keys, model assumptions)</li><li>implementations: React, Mithril, Matt-Esch/virtual-dom</li></ul></section><section><h2>Shadow DOM</h2><pre><code class="hljs html">&lt;template id="template"&gt;
+    &lt;style&gt;
+        ...
+    &lt;/style&gt;
+    &lt;div class="outer"&gt;
+        &lt;div class="title"&gt;Hello world from&lt;/div&gt;
+        &lt;div class="name"&gt;
+            &lt;content&gt;&lt;/content&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+&lt;div id="example"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var shadow = document.querySelector('#example').createShadowRoot();
+    var template = document.querySelector('#template');
+    var clone = document.importNode(template.content, true);
+    shadow.appendChild(clone);
+&lt;/script&gt;
+</code></pre><template id="shadow-dom-template"><style>.outer {
+    border: 1px dashed white;
+    background: #9E0000;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+.title {
+    color: white;
+    padding: 0.2em;
+}
+.name {
+    background: white;
+    padding: 0.2em;
+}</style><div class="outer"><div class="title">Hello world from</div><div class="name"><content></content></div></div></template><div id="shadow-dom-example">Shadom DOM</div><script>var shadow = document.querySelector('#shadow-dom-example').createShadowRoot();
+var template = document.querySelector('#shadow-dom-template');
+var clone = document.importNode(template.content, true);
+shadow.appendChild(clone);
+
+</script></section><section><h2>IndexedDB</h2></section><section><h2>Sockets</h2></section><section><h2>Server push</h2></section><section><h2>Server side rendering</h2></section></section><section>- http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email</section></div></div><script src="bower_components/reveal-js/lib/js/head.min.js"></script><script src="bower_components/reveal-js/js/reveal.js"></script><script>Reveal.initialize({
     progress: true,
     slideNumber: false,
     history: true,

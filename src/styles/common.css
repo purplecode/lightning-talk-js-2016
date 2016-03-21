@@ -12,3 +12,16 @@
 .split .left, .split .right {
     flex-grow: 1;
 }
+
+.reveal section .filename {
+    margin-bottom: 5px;
+    font-style: italic
+}
+
+.reveal section sup {
+    font-size: 0.7em;
+}
+
+.reveal pre code {
+     max-height: none;
+}
