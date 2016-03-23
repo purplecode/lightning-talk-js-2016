@@ -22,9 +22,17 @@
     font-size: 0.7em;
 }
 
+.reveal section pre {
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 98%;
+}
+
 .reveal pre code {
      max-height: none;
-}</style></head><body><a href="https://github.com/purplecode/lightning-talk-js-2016" title="Fork me on Github" class="github-fork-ribbon right-top"></a><div class="reveal"><div class="slides"><section><h1>JavaScript in 2016</h1><h3>Current status of JS development</h3></section><section><section><h2>Javascript</h2><img src="src/images/jsgolf.jpg"><p>This is Javascript. If you put big wheels and a racing stripe on a golf cart, it's still a fucking golf cart.</p><br><small><a href="http://crashworks.org/if_programming_languages_were_vehicles/" target="_blank">@source: if programming languages were vehicles</a></small></section><section><h2>WAT</h2><pre><code class="hljs javascript">2 == [2];
+}
+
+</style></head><body><a href="https://github.com/purplecode/lightning-talk-js-2016" title="Fork me on Github" class="github-fork-ribbon right-top"></a><div class="reveal"><div class="slides"><section><h1>JavaScript in 2016</h1><h3>Current status of JS development</h3></section><section><section><h2>Javascript</h2><img src="src/images/jsgolf.jpg"><p>This is Javascript. If you put big wheels and a racing stripe on a golf cart, it's still a fucking golf cart.</p><br><small><a href="http://crashworks.org/if_programming_languages_were_vehicles/" target="_blank">@source: if programming languages were vehicles</a></small></section><section><h2>WAT</h2><pre><code class="hljs javascript">2 == [2];
 // true
 
 2 == [[2]];
@@ -264,10 +272,12 @@ worker.onmessage(event => console.log(event.data));
     margin: auto;
     text-align: center;
 }
+
 .title {
     color: white;
     padding: 0.2em;
 }
+
 .name {
     background: white;
     padding: 0.2em;
@@ -275,8 +285,61 @@ worker.onmessage(event => console.log(event.data));
 var template = document.querySelector('#shadow-dom-template');
 var clone = document.importNode(template.content, true);
 shadow.appendChild(clone);
+</script></section><section><h2>IndexedDB</h2><ul><li>client-side storage for structured data, files or blobs</li><li>asynchronous, transactional, indexes</li><li>same-origin principle, available from web-workers</li><li>wrapper:&nbsp;<a href="http://dexie.org/">dexie</a></li><pre><code class="hljs javascript">var request = window.indexedDB.open("hollywood", 1);
+request.onerror = event => console.log("Error", event);
+request.onupgradeneeded = (event) => {
+    var database = event.target.result;
+    database.createObjectStore("movies", {keyPath: "id"})
+        .add({ id: "0", name: "Seksmisja" });
+}
+request.onsuccess = event => {
+    var database = event.target.result;
+    var transaction = database.transaction(["movies"], "readonly")
+        .objectStore("movies")
+        .get("0");
+    transaction.onsuccess = event => console.log(transaction.result);
+    transaction.onerror = event => console.log("Error", event);
+};
+</code></pre></ul></section><section><h2>Sockets</h2><ul><li>full-duplex communication channels over a single TCP connection</li></ul><pre><code class="hljs javascript">var socket = new WebSocket('ws://domain.com:12010/api');
+socket.onopen = () => {
+  setInterval(function() {
+      socket.send(data);
+  }, 100);
+};
+socket.onmessage = (event) => {
+    console.log(event.data);
+}
+</code></pre></section><section><h2>Server push</h2><ul><li>transaction is initiated by the server</li><pre><code class="hljs javascript">var indexFile = fs.readFileSync(path.join(__dirname, './index.js'));
+var addons = path.join(__dirname, '/addons.js');
 
-</script></section><section><h2>IndexedDB</h2></section><section><h2>Sockets</h2></section><section><h2>Server push</h2></section><section><h2>Server side rendering</h2></section></section><section>- http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email</section></div></div><script src="bower_components/reveal-js/lib/js/head.min.js"></script><script src="bower_components/reveal-js/js/reveal.js"></script><script>Reveal.initialize({
+function onRequest(request, response) {
+   var filename = path.join(__dirname, request.url);
+     if (response.push) {
+       var push = response.push('/addons.js');
+       push.writeHead(200);
+       fs.createReadStream(addons).pipe(push);
+     }
+     response.end(indexFile);
+ }
+
+http2.createServer(options, onRequest).listen(8080);
+</code></pre></ul></section><section><h2>Server side rendering</h2><ul><li>page loads faster, no white page</li><li>content is visible to search engine</li><li>less browser compatibility issues</li><li>doable current frameworks like React</li></ul><div class="split"><div class="left"><pre><code class="hjls c">var React = require('react');
+var ReactDOM = require('react-dom');
+
+class MyComponent extends React.Component {
+    render() {
+        return &lt;div&gt;Hello World&lt;/div&gt;;
+    }
+}
+ReactDOM.render(&lt;MyComponent /&gt;, node);</code></pre></div><div class="right"><pre><code class="hjls javascript">var React = require('react');
+var ReactDOMServer = require('react-dom/server');
+
+class MyComponent extends React.Component {
+    render() {
+        return &lt;div&gt;Hello World&lt;/div&gt;;
+    }
+}
+ReactDOMServer.renderToString(&lt;MyComponent /&gt;);</code></pre></div></div></section></section><section><h2>This is all for now...</h2></section><section><h2>Thanks!</h2></section></div></div><script src="bower_components/reveal-js/lib/js/head.min.js"></script><script src="bower_components/reveal-js/js/reveal.js"></script><script>Reveal.initialize({
     progress: true,
     slideNumber: false,
     history: true,

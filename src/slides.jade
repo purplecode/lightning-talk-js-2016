@@ -637,10 +637,12 @@ section
                     margin: auto;
                     text-align: center;
                 }
+
                 .title {
                     color: white;
                     padding: 0.2em;
                 }
+
                 .name {
                     background: white;
                     padding: 0.2em;
@@ -657,23 +659,116 @@ section
             var clone = document.importNode(template.content, true);
             shadow.appendChild(clone);
 
-
     section
         h2 IndexedDB
+        ul
+            li client-side storage for structured data, files or blobs
+            li asynchronous, transactional, indexes
+            li same-origin principle, available from web-workers
+            li wrapper:&nbsp;
+                a(href="http://dexie.org/") dexie
+            pre
+                code.hljs.javascript.
+                    var request = window.indexedDB.open("hollywood", 1);
+                    request.onerror = event => console.log("Error", event);
+                    request.onupgradeneeded = (event) => {
+                        var database = event.target.result;
+                        database.createObjectStore("movies", {keyPath: "id"})
+                            .add({ id: "0", name: "Seksmisja" });
+                    }
+                    request.onsuccess = event => {
+                        var database = event.target.result;
+                        var transaction = database.transaction(["movies"], "readonly")
+                            .objectStore("movies")
+                            .get("0");
+                        transaction.onsuccess = event => console.log(transaction.result);
+                        transaction.onerror = event => console.log("Error", event);
+                    };
 
     section
         h2 Sockets
+        ul
+            li full-duplex communication channels over a single TCP connection
+        pre
+            code.hljs.javascript.
+                var socket = new WebSocket('ws://domain.com:12010/api');
+                socket.onopen = () => {
+                  setInterval(function() {
+                      socket.send(data);
+                  }, 100);
+                };
+                socket.onmessage = (event) => {
+                    console.log(event.data);
+                }
 
     section
         h2 Server push
+        ul
+            li transaction is initiated by the server
+            pre
+                code.hljs.javascript.
+                    var indexFile = fs.readFileSync(path.join(__dirname, './index.js'));
+                    var addons = path.join(__dirname, '/addons.js');
+
+                    function onRequest(request, response) {
+                       var filename = path.join(__dirname, request.url);
+                         if (response.push) {
+                           var push = response.push('/addons.js');
+                           push.writeHead(200);
+                           fs.createReadStream(addons).pipe(push);
+                         }
+                         response.end(indexFile);
+                     }
+
+                    http2.createServer(options, onRequest).listen(8080);
 
     section
         h2 Server side rendering
+        ul
+            li page loads faster, no white page
+            li content is visible to search engine
+            li less browser compatibility issues
+            li doable current frameworks like React
+        .split
+            .left
+                pre
+                    code.hjls.c.
+                        var React = require('react');
+                        var ReactDOM = require('react-dom');
+
+                        class MyComponent extends React.Component {
+                            render() {
+                                return &lt;div&gt;Hello World&lt;/div&gt;;
+                            }
+                        }
+                        ReactDOM.render(&lt;MyComponent /&gt;, node);
+            .right
+                pre
+                    code.hjls.javascript.
+                        var React = require('react');
+                        var ReactDOMServer = require('react-dom/server');
+
+                        class MyComponent extends React.Component {
+                            render() {
+                                return &lt;div&gt;Hello World&lt;/div&gt;;
+                            }
+                        }
+                        ReactDOMServer.renderToString(&lt;MyComponent /&gt;);
+section
+    h2 This is all for now...
+
+section
+    h2 Thanks!
 
 
 
 
-section.
-    - http://developer.telerik.com/featured/what-to-expect-from-javascript-in-2016-beyond-the-browser/?utm_source=javascriptweekly&utm_medium=email
+
+
+
+
+
+
+
 
 
