@@ -49,7 +49,14 @@ section
             | Recommended: &nbsp;
             a(href="https://www.destroyallsoftware.com/talks/wat" target="_blank") A lightning talk by Gary Bernhardt [CodeMash, 2012]
 
-section
+section#popularity
+    style.
+        #popularity img {
+            max-height: 50vh;
+            display: block;
+            margin: auto;
+            margin-bottom: 5px;
+        }
     section
         h1 Popularity
 
@@ -59,13 +66,33 @@ section
         img(src="src/images/popularity-github.jpg")
         small @source: github
 
-
     section
         h2 Popularity
         h4 libraries count
         img(src="src/images/modules.png")
         small @source: &nbsp;
-            a(href="http://www.modulecounts.com/") modulecounts.com
+            a(href="http://www.modulecounts.com/") www.modulecounts.com
+
+    section
+        h2 Popularity
+        h4 stackoverflow questions & answers
+        img(src="src/images/popularity-stackoverflow.png")
+        small @source: &nbsp;
+            a(href="https://smthngsmwhr.wordpress.com/2012/11/19/measuring-popularity-of-programming-languages/") https://smthngsmwhr.wordpress.com
+
+    section
+        h2 Popularity
+        h4 twitter mentioning
+        img(src="src/images/popularity-twits.png")
+        small @source: &nbsp;
+            a(href="http://blog.revolutionanalytics.com/2010/12/programming-languages-ranked-by-popularity.html") http://blog.revolutionanalytics.com
+
+    section
+        h2 Popularity
+        h4 most in-demand languages in 2016
+        img(src="src/images/popularity-jobs.jpg")
+        small @source: &nbsp;
+            a(href="http://www.codingdojo.com/blog/9-most-in-demand-programming-languages-of-2016/") www.codingdojo.com
 
     section
         h2 Popularity
@@ -212,6 +239,8 @@ section
                 tr
                     td 7.0
                     td in progress
+        br
+        small * JavaScript/Mocha/LiveScript - 1995, Brendan Eich, Netscape
 
     section
         h2 ES6 - Classes
@@ -575,6 +604,13 @@ section
         small
             | @source: &nbsp;
             a(href="https://en.wikipedia.org/wiki/Asm.js") Wikipedia
+
+    section
+        h2 Benchmark
+        img(src="src/images/asm_sha1.png")
+        small @source: &nbsp;
+            a(href="http://kukun.in/asm-js-speed-benchmark/") http://kukun.in/asm-js-speed-benchmark
+
 
 section
     section
